@@ -1,0 +1,7 @@
+SmoothWheel 
+
+Allows scrolling in a smooth way
+
+Most of it taken from https://github.com/fatlinesofcode/jquery.smoothwheel
+
+fix some minor problems I had with recent version of firefox 
