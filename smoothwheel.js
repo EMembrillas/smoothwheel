@@ -1,6 +1,7 @@
 /*
  * http://jsbin.com/iqafek/2/edit
  */
+
 var normalizeWheelDelta = function () {
     // Keep a distribution of observed values, and scale by the
     // 33rd percentile.
@@ -30,9 +31,6 @@ var normalizeWheelDelta = function () {
     };
 }();
 
-/*
- *
- */
 var requestAnimationFrame = window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.mozRequestAnimationFrame ||
@@ -54,9 +52,6 @@ var currentY = 0,
     minMovement = 0.1,
     ts = 0.1;
 
-/*
- *
- */
 function getScrollPosition() {
     if (document.documentElement.scrollTop == 0) {
         return document.body.scrollTop;
@@ -65,9 +60,6 @@ function getScrollPosition() {
     }
 }
 
-/*
- *
- */
 function updateScrollTarget(amt) {
     targetY += amt;
     vy += (targetY - oldY) * stepAmt;
@@ -75,27 +67,7 @@ function updateScrollTarget(amt) {
     oldY = targetY;
 }
 
-/*
- *
- */
-function setup() {
-    // deal with the mouse wheel
-    window.addEventListener("mousewheel", mouseScroll, false);
-    window.addEventListener("DOMMouseScroll", mouseScroll, false);
-
-    targetY = oldY = getScrollPosition();
-    currentY = -targetY;
-
-    minScrollTop = document.documentElement.clientHeight - document.documentElement.scrollHeight - 300;
-
-    animationLoop();
-}
-
-/*
- *
- */
 function mouseScroll(e) {
-
     // cancel the default scroll behavior
     if (e.preventDefault) {
         e.preventDefault();
@@ -109,15 +81,10 @@ function mouseScroll(e) {
         vy = 0;
         direction = dir;
     }
-
     currentY = -getScrollPosition();
-
     updateScrollTarget(delta);
 }
 
-/*
- *
- */
 function animationLoop() {
     requestAnimationFrame(animationLoop);
 
@@ -139,4 +106,15 @@ function animationLoop() {
     }
 }
 
-});
+function feelTheSmoothWheeling() {
+    // deal with the mouse wheel
+    window.addEventListener("mousewheel", mouseScroll, false);
+    window.addEventListener("DOMMouseScroll", mouseScroll, false);
+
+    targetY = oldY = getScrollPosition();
+    currentY = -targetY;
+
+    minScrollTop = document.documentElement.clientHeight - document.documentElement.scrollHeight;
+
+    animationLoop();
+}
